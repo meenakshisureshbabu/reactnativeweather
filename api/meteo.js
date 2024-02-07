@@ -10,8 +10,13 @@ export class MeteoAPI{
     }
 
     static async fetchCoords(city){
-        const {latitude:lat,longitude:lng} = (await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`)).data.results[0];
-        return {lat :lat,lng: lng}
+        try{
+            const {latitude:lat,longitude:lng} = (await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`)).data.results[0];
+            return {lat :lat,lng: lng}
+        }
+        catch(err){
+            throw "Invalid City Name"
+        }
     }
 }
 
